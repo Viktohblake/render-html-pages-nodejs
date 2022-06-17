@@ -6,7 +6,7 @@ const port = 4000;
 // create a server with the HTTP variable
 const server = http.createServer(function (request, response) {
 
-  // create route map for html file and send back some information
+  // create route map for html  and send back some information
   const routes = {
     'home': 'home.html',
     'about': 'about.html',
