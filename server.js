@@ -5,25 +5,22 @@ const port = 4000;
 
 // create a server with the HTTP variable
 const server = http.createServer(function (request, response) {
-  // create routes and send back some information
-  let path = "";
-  switch (request.url) {
-    case "/home":
-      path = "home.html";
-      break;
-    case "/about":
-      path = "about.html";
-      break;
-    case "/contact":
-      path = "contact.html";
-      break;
-    default:
-      break;
+
+  // create route map for html file and send back some information
+  const routes = {
+    'home': 'home.html',
+    'about': 'about.html',
+    'contact': 'contact.html',
   }
 
-  // render html file
-  if (path) {
-    fs.stat(`./${path}`, (err, stats) => {
+  // call render function
+  render(response, routes[request.url.slice(1)]);
+
+});
+
+// render html file path function
+function render(response, path) {
+      fs.stat(`./${path}`, (err, stats) => {
       response.statusCode = 200;
       // header
       response.setHeader("Content-Type", "text/html");
@@ -36,7 +33,6 @@ const server = http.createServer(function (request, response) {
       }
     });
   }
-});
 
 // create a port
 server.listen(port, "127.0.0.1");
